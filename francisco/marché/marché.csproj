@@ -7,4 +7,24 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Place_du_marché.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Place_du_marché.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="donnée\Place du marché.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
