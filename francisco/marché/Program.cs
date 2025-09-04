@@ -20,13 +20,13 @@ class Programm
         //    Console.WriteLine("fichier introuvable");
         //    //Console.ReadKey();
         //    return;
-        //}
+        //}8
         //else
         //    Console.WriteLine("Fichier trouver");
 
         //Console.ReadKey();
 
-
+        
         List<Product> products = new List<Product>();
 
         products.Add(new Product { Location = "1", Provider = "Bornand", Produit = "Pommes", Quantity = 20, Unit = "kg", Price = 6.90m });
@@ -146,6 +146,7 @@ class Programm
             }
         }
         Console.WriteLine($"Le meilleur est {bestSeller.Provider} avec {bestSeller.Quantity}");
+        
     }
     class Product
     {
