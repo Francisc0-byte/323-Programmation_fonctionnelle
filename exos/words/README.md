@@ -30,15 +30,19 @@ Ajouter dans le menu (ou demander à l’utilisateur une fois le filtre réalis�
 
 ### B. Données parasites 1
 
-Il arrive des situations où les données ne sont pas parfaites. Par exemple, on pourrait imaginer que le flux de génération des données contient des éléments aberrants
-au début et à la fin:
+Il arrive des situations où les données ne sont pas parfaites. 
+Par exemple, on pourrait imaginer que le flux de génération des données contient 
+des éléments aberrants au début et à la fin:
 
 ```c#
-string[] words = {"whatThe!!!", "bonjour", "hello", "monde", "vert", "rouge", "bleu", "jaune","My kingdom for a horse !", "Ooops I did it again" };
+string[] words = {"whatThe!!!", "bonjour", "hello", "monde", "vert", "rouge", "bleu",
+ "jaune","My kingdom for a horse !", "Ooops I did it again" };
 ```
 
-Admettons pour l’instant que le flux amène toujours une donnée parasite au début et 2 à la fin. Dans ce cas, **implémenter** un filtrage en utilisant des fonctions décrites dans la cheatsheet
-qui permettent un code très sobre et facile à lire. 
+Admettons pour l’instant que le flux amène toujours 
+une donnée parasite au début et 2 à la fin. Dans ce cas, **implémenter** 
+un filtrage en utilisant des fonctions décrites dans la cheatsheetqui permettent 
+un code très sobre et facile à lire. 
 
 ### C. Données parasites 2
 
@@ -79,9 +83,13 @@ Résultat:
 
 ## Partie 2: Epsilon
 
-Trouver une source fiable sur la répartition des lettres en français (A:8.15%, B:0.97%,...) et afficher les mots avec leur valeur Epsilon et **uniquement ceux dont la valeur Epsilon est comprise entre 0.5 et 0.95**. 
+Trouver une source fiable sur la répartition des lettres en français (A:8.15%, B:0.97%,...) 
+et afficher les mots avec leur valeur Epsilon et 
+**uniquement ceux dont la valeur Epsilon est comprise entre 0.5 et 0.95**. 
 
-*La valeur Epsilon correspond à la somme des probabilités (pourcentage=probabilité\*100) d'apparation de chaque lettre d'un mot si les lettres sont toute différentes. En cas de lettre présente 2x dans le mots, par exemple, la probabilité est divisée par le nombre de lettres*
+*La valeur Epsilon correspond à la somme des probabilités (pourcentage=probabilité\*100) 
+d'apparation de chaque lettre d'un mot si les lettres sont toute différentes. 
+En cas de lettre présente 2x dans le mots, par exemple, la probabilité est divisée par le nombre de lettres*
 
 ### Exemple de calcul pour Epsilon ###
 

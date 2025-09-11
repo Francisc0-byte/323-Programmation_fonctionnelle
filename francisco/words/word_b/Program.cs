@@ -7,17 +7,25 @@ class Program
 {
     static void Main()
     {
-        string[] words = { "whatThe!!!", "bonjour", "hello", "monde", "vert", "rouge", "bleu", "jaune", "My kingdom for a horse !", "Ooops I did it again" };
 
-        Console.WriteLine($"{string.Join(", ", words.Skip(1).SkipLast(2))}");
+        Action a = () =>
+        {
+            string[] words = { "whatThe!!!", "bonjour", "hello", "monde", "vert", "rouge", "bleu", "jaune", "My kingdom for a horse !", "Ooops I did it again" };
 
-        string[] wordsSpecial = { "+++++", "<<<<<", ">>>>>", "bonjour", "hello", "@@@@", "vert", "rouge", "bleu", "jaune", "#####", "%%%%%%%" };
+            Console.WriteLine($"{string.Join(", ", words.Skip(1).SkipLast(2))}");
 
-        var clean = wordsSpecial.Where(word => word.All(letter=>char.IsLetterOrDigit(letter)));
-        Console.WriteLine(string.Join(" ", clean));
+            string[] wordsSpecial = { "+++++", "<<<<<", ">>>>>", "bonjour", "hello", "@@@@", "vert", "rouge", "bleu", "jaune", "#####", "%%%%%%%" };
 
-        string[] wordsElite = { "i am the winner", "hello", "monde", "vert", "rouge", "bleu", "i am the looser" };
+            var clean = wordsSpecial.Where(word => word.All(letter => char.IsLetterOrDigit(letter)));
+            Console.WriteLine(string.Join(" ", clean));
 
-        
+            string[] wordsElite = { "i am the winner", "hello", "monde", "vert", "rouge", "bleu", "i am the looser" };
+
+            Console.WriteLine($"Winner: {wordsElite.First()}\nLosser: {wordsElite.Last()}");
+
+        };
+            a();
+
     }
+
 }
