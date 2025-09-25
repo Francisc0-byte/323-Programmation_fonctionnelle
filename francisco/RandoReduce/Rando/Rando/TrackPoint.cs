@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gpx;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rando
 {
-    public class TrackPoint
+    public class TrackPoint :GpxPoint
     {
         private double _latitude;
         private double _longitude;
@@ -27,6 +28,7 @@ namespace Rando
             get => _elevation;
             set => _elevation = value;
         }
-
+        
     }
+
 }
