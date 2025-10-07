@@ -1,0 +1,10 @@
+ligne1:bonjour
+ligne2:bonsoir
+ligne3:voicilaligne3
+ligne4:envoiciune4ème
+ligne5:vide
+ligne6:encorevide
+ligne7:avecunetabulation
+ligne8:huit
+ligne9:neuf
+ligne10:ladernière

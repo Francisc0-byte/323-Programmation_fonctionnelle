@@ -61,10 +61,29 @@ Console.Write("-Ignorer la casse [o/n]: ");
 bool ignoreCase = Console.ReadLine() == "o";
 
 // TODO:  05 Appliquer le nettoyage selon la demande utilisateur
-
-
+if (ignoreSpaces)
+{
+    linesA = linesA.Select(cleanSpaces).ToArray();
+    linesB = linesB.Select(cleanSpaces).ToArray();
+    console.writeline(">Espaces ignorés");
+}
+if (ignoreTabs)
+{
+    linesA = linesA.Select(cleanTabs).ToArray();
+    linesB = linesB.Select(cleanTabs).ToArray();
+    console.writeline(">Tabulations ignorées");
+}
+if(ignoreCase)
+{
+    linesA = linesA.Select(enforceCase).ToArray();
+    linesB = linesB.Select(enforceCase).ToArray();
+    console.writeline(">Casse ignorée");
+}   
 // TODO: 06 Créer et remplir une liste de LinesComparison à partir de linesA et linesB
-List<LinesComparison> comparisons = new();
+List<LinesComparison> comparisons = linesA
+    .Select((line,index)=>
+        new LinesComparison(){
+            ;
 
 // TODO: 07 Sélectionner les lignes qui ont des différences
 var diffLines = new Liste<LinesComparison>();

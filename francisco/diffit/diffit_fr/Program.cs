@@ -14,11 +14,10 @@ Console.WriteLine("|DIFFIT : A very limited DIFFTOOL|");
 Console.WriteLine("+--------------------------------+");
 
 Console.Write("Fichier A: ");
-string? pathA = "C:\\Users\\pc96ihd\\Documents\\GitHub\\323-Programmation_fonctionnelle\\francisco\\diffit\\v1.txt";
+string? pathA = "C:\\Users\\jaysb\\Documents\\GitHub\\323-Programmation_fonctionnelle\\exos\\diffit\\v1.txt";
 
 Console.Write("Fichier B: ");
-string? pathB = "C:\\Users\\pc96ihd\\Documents\\GitHub\\323-Programmation_fonctionnelle\\francisco\\diffit\\v2.txt";
-
+string? pathB = "C:\\Users\\jaysb\\Documents\\GitHub\\323-Programmation_fonctionnelle\\exos\\diffit\\v2.txt";
 // Vérification des entrées utilisateur
 var paths = new string?[] { pathA, pathB };
 bool filesAreValid = paths.Aggregate(true, (a, b) => a && b != null && File.Exists(b));
@@ -34,6 +33,7 @@ string[] linesA =  File.ReadAllLines(pathA) ;
 
 // TODO: 02 Charger le contenu texte du fichier B (indice: File.ReadAllLines...)
 string[] linesB = File.ReadAllLines(pathB);
+
 
 // TODO: 03 Vérifier que les fichier ont le même nombre de lignes ==> il a fallu changer la valeur true par la condition ci dessous
 if (linesA.Length!=linesB.Length)
@@ -65,61 +65,86 @@ bool ignoreCase = Console.ReadLine() == "o";
 
 
 // TODO:  05 Appliquer le nettoyage selon la demande utilisateur
-IEnumerable<string> cleanA = linesA;
-IEnumerable<string> cleanB = linesB;
-
 if (ignoreSpaces)
 {
-    cleanA = cleanA.Select(cleanSpaces);
-    Console.WriteLine(cleanA);
-
-    cleanB = cleanB.Select(cleanSpaces);
-    Console.WriteLine(cleanB);
+    linesA=linesA.Select(cleanSpaces).ToArray();
+    linesB =linesB.Select(cleanSpaces).ToArray();
+    Console.WriteLine("Espace nettoyé");
 
 }
-else
-{
-    Console.WriteLine(string.Join("\n",cleanA)); //=
-    Console.WriteLine(cleanB);
-}
-
 if (ignoreTabs)
 {
-     cleanA = linesA.Select(line => cleanTabs(line));
-
-     cleanB = linesB.Select(line => cleanTabs(line));
+    linesA = linesA.Select(cleanTabs).ToArray();
+    linesB = linesB.Select(cleanTabs).ToArray();
+    Console.WriteLine("Tabulation nettoyé");
 }
 if (ignoreCase)
 {
-     cleanA = linesA.Select(line => enforceCase(line));
-
-     cleanB = linesB.Select(line => enforceCase(line));
+    linesA = linesA.Select(enforceCase).ToArray();
+    linesB = linesB.Select(enforceCase).ToArray();
+    Console.WriteLine("Casse nettoyé");
 }
 // TODO: 06 Créer et remplir une liste de LinesComparison à partir de linesA et linesB
-List<LinesComparison> comparisons = new();
+List<LinesComparison> comparisons = linesA
+    .Select((line,index)=>
+    new LinesComparison()
+    {
+        Number=index,
+        ContentA=line,
+        ContentB=linesB[index]
+    }).ToList();
 
 // TODO: 07 Sélectionner les lignes qui ont des différences
-var diffLines = new List<LinesComparison>();
+var diffLines = comparisons.Where(diffLine=> diffLine.ContentA != diffLine.ContentB).ToList();
 
 // TODO: 08 Afficher le nombre de lignes identiques et différentes entre les 2 fichiers
-
+int matchingLinesCount = linesA.Length - diffLines.Count();
+Console.WriteLine($"Nombre de lignes identiques: {matchingLinesCount}");
 // TODO: 09 Définir une fonction qui compte les différences (caractères différents) entre deux textes (sera utilisé pour les 2 lignes de A et B...)
 // Pour info/rappel, la fonction Zip (comme une fermeture éclair) permet d’associer deux listes.
 // Et pour info/rappel, un string est une liste de char...
 // Ainsi "12345".Zip("ABCDE", (a, b) => $"{a}{b}").ToList().ForEach(Console.Write);//1A2B3C4D5E
 // ATTENTION: zip ne prend que le nombre d’éléments minimum commun entre 2 listes...
 // Ceci implique une correction: en plus du nombre de différences, il faut ajouter la différence du nombre de caractères entre les deux...
-Func<LinesComparison, int> countVariations = _ => -1;
+Func<LinesComparison, int> countVariations =
+    (comparison)=>
+    comparison.ContentA.Zip(comparison.ContentB,(charA,charB)=>(charA==charB ? 0:1))
+    .Sum() +comparison.LengthVariation;
 
 // TODO: 10 Afficher pour chaque ligne différente, le nombre de variations
-
-/// Diff coloré
+diffLines.ForEach(comparison =>Console.WriteLine($"Ligne {comparison.NumberHuman}: {countVariations(comparison)} variations"));/// Diff coloré
 // TODO: 11 Colorier les différences
 // Pour chaque ligne où il y a des différences:
 // On affiche ainsi:
 // Les lettres similaires sont en vert
 // Les lettres différentes sont en rouge (options entre[a/b])
 // On n’indique rien sur les caractères en plus ou en moins
+var defaultColor = Console.ForegroundColor;
+diffLines.ForEach(
+    comparison =>
+    {
+        int number = 0;
+        comparison.ContentA.Zip(comparison.ContentB, (charA, charB) =>
+            new char[] { charA, charB }).ToList().ForEach(chars =>
+            {
+                if (number != comparison.NumberHuman)
+                {
+                    number = comparison.NumberHuman;
+                    Console.ForegroundColor = defaultColor;
+                    Console.Write($"\nLigne {comparison.NumberHuman}: ");
+                }
+                if (chars[0] == chars[1])
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(chars[0]);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(chars[0]);
+                }
+            });
+    });
 
 /// Chiffrement
 // TODO: 11 Créer une fonction qui chiffre le 1er fichier en décalant les caratères d’un nombre
@@ -129,7 +154,21 @@ Func<LinesComparison, int> countVariations = _ => -1;
 Console.Write("\n\nSPECIAL FEATURE: Clé de chiffrement [1-25]: ");
 byte key = Convert.ToByte(Console.ReadLine());
 
+// Chiffrement
+var criptedA = linesA.Select(line =>
+    string.Join("", line.Select(letter => (char)(letter + key)))
+).ToList();
 
+File.WriteAllLines("C:\\Users\\jaysb\\Documents\\GitHub\\323-Programmation_fonctionnelle\\francisco\\diffit\\criptedA.txt", criptedA);
+Console.WriteLine("Fichier 'criptedA.txt' créé");
+
+// Déchiffrement
+var decryptedA = criptedA.Select(line =>
+    string.Join("", line.Select(letter => (char)(letter - key)))
+).ToList();
+
+File.WriteAllLines("C:\\Users\\jaysb\\Documents\\GitHub\\323-Programmation_fonctionnelle\\francisco\\diffit\\decryptedA.txt", decryptedA);
+Console.WriteLine("Fichier 'decryptedA.txt' créé");
 /// <summary>
 /// Classe pour porter une information de comparaison
 /// </summary>
