@@ -1,0 +1,53 @@
+Bien sûr Francisco ! Voici une liste enrichie de **propriétés et méthodes courantes** qu’on utilise souvent **dans ou autour de LINQ**, même si elles ne font pas partie de LINQ à proprement parler. Elles sont très utiles pour filtrer, transformer ou analyser les données dans tes expressions LINQ 👨‍💻
+
+---
+
+## 📏 **Propriétés utiles dans LINQ**
+
+| Propriété        | Type concerné     | Description |
+|------------------|-------------------|-------------|
+| `.Length`        | `string`, tableau | Longueur d’une chaîne ou d’un tableau |
+| `.Count`         | `List<T>`, `IEnumerable<T>` | Nombre d’éléments (attention : méthode LINQ aussi) |
+| `.Name`          | `FileInfo`, `Personne`, etc. | Nom d’un objet ou d’une entité |
+| `.Age`, `.Id`    | Objet personnalisé | Propriétés typiques dans des classes |
+| `.IsCompleted`   | `Task`, `Tache`, etc. | État booléen d’un objet |
+| `.Date` / `.Day` | `DateTime`        | Accès à la date ou au jour |
+| `.Key`, `.Value` | `KeyValuePair<K,V>` | Utilisé dans les dictionnaires |
+
+---
+
+## 🔧 **Méthodes utiles dans LINQ (hors LINQ mais souvent combinées)**
+
+| Méthode             | Type concerné | Description |
+|---------------------|---------------|-------------|
+| `.ToUpper()`        | `string`      | Convertit en majuscules |
+| `.ToLower()`        | `string`      | Convertit en minuscules |
+| `.Trim()`           | `string`      | Supprime les espaces |
+| `.StartsWith()`     | `string`      | Vérifie le début d’une chaîne |
+| `.EndsWith()`       | `string`      | Vérifie la fin d’une chaîne |
+| `.Contains()`       | `string`, `List<T>` | Vérifie la présence d’un élément |
+| `.Replace()`        | `string`      | Remplace une sous-chaîne |
+| `.Substring()`      | `string`      | Extrait une portion de chaîne |
+| `.Split()`          | `string`      | Découpe une chaîne en tableau |
+| `.Equals()`         | `object`      | Compare deux objets |
+| `.ToString()`       | `object`      | Convertit en chaîne |
+| `.Parse()` / `.TryParse()` | `int`, `DateTime`, etc. | Conversion typée depuis une chaîne |
+
+---
+
+## 🧠 Exemple combiné
+
+```csharp
+var utilisateurs = new List<string> { " Alice ", "bob", "Charlie" };
+
+// Transformation : nettoyage + majuscules + filtrage
+var resultat = utilisateurs
+    .Select(u => u.Trim().ToUpper())       // Nettoie et majuscule
+    .Where(u => u.StartsWith("A"))         // Filtre ceux qui commencent par A
+    .ToList();
+
+foreach (var nom in resultat)
+    Console.WriteLine(nom); // Affiche "ALICE"
+```
+
+---

@@ -1,0 +1,51 @@
+Pour transformer un **`IEnumerable<T>` en `string`** en C#, tu peux utiliser la méthode `string.Join()` — c’est la plus simple et la plus efficace 💡
+
+---
+
+## ✅ Exemple de base
+
+```csharp
+var noms = new List<string> { "Alice", "Bob", "Charlie" };
+
+// Transformation : concatène tous les noms avec une virgule
+string resultat = string.Join(", ", noms);
+
+Console.WriteLine(resultat); // Affiche : Alice, Bob, Charlie
+```
+
+---
+
+## 🔧 Exemple avec transformation avant la jointure
+
+```csharp
+var nombres = new List<int> { 1, 2, 3, 4 };
+
+// Transformation : chaque nombre devient "n°X", puis on les joint
+string resultat = string.Join(" | ", nombres.Select(n => $"n°{n}"));
+
+Console.WriteLine(resultat); // Affiche : n°1 | n°2 | n°3 | n°4
+```
+
+---
+
+## 🧠 Astuce : pour les objets personnalisés
+
+```csharp
+var personnes = new[]
+{
+    new { Nom = "Alice", Age = 30 },
+    new { Nom = "Bob", Age = 25 }
+};
+
+// Transformation : chaque personne devient une ligne formatée
+string resultat = string.Join("\n", personnes.Select(p => $"{p.Nom} ({p.Age} ans)"));
+
+Console.WriteLine(resultat);
+/*
+Affiche :
+Alice (30 ans)
+Bob (25 ans)
+*/
+```
+
+---

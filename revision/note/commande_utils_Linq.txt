@@ -1,0 +1,97 @@
+var nombres = new List<int> { 1, 2, 3, 4, 5 };
+
+// Sélectionne uniquement les nombres pairs
+var pairs = nombres.Where(n => n % 2 == 0);
+
+foreach (var n in pairs)
+    Console.WriteLine(n); // Affiche 2, 4
+--------------
+var noms = new List<string> { "Alice", "Bob" };
+
+// Transforme chaque nom en sa longueur
+var longueurs = noms.Select(n => n.Length);
+
+foreach (var l in longueurs)
+    Console.WriteLine(l); // Affiche 5, 3
+---------------
+var doublons = new List<int> { 1, 2, 2, 3 };
+
+// Supprime les doublons
+var uniques = doublons.Distinct();
+
+foreach (var n in uniques)
+    Console.WriteLine(n); // Affiche 1, 2, 3
+---------------
+var premiers = nombres.Take(3); // Prend les 3 premiers
+
+foreach (var n in premiers)
+    Console.WriteLine(n); // Affiche 1, 2, 3
+---------------
+var restants = nombres.Skip(2); // Ignore les 2 premiers
+
+foreach (var n in restants)
+    Console.WriteLine(n); // Affiche 3, 4, 5
+---------------
+var petits = nombres.TakeWhile(n => n < 4);
+
+foreach (var n in petits)
+    Console.WriteLine(n); // Affiche 1, 2, 3
+---------------
+var tri = noms.OrderBy(n => n);
+
+foreach (var n in tri)
+    Console.WriteLine(n); // Affiche Alice, Bob
+---------------
+var triInverse = noms.OrderByDescending(n => n);
+
+foreach (var n in triInverse)
+    Console.WriteLine(n); // Affiche Bob, Alice
+---------------
+var personnes = new[] {
+    new { Nom = "Alice", Age = 30 },
+    new { Nom = "Bob", Age = 25 },
+    new { Nom = "Alice", Age = 22 }
+};
+
+// Trie par nom, puis par âge
+var triComplexe = personnes.OrderBy(p => p.Nom).ThenBy(p => p.Age);
+
+foreach (var p in triComplexe)
+    Console.WriteLine($"{p.Nom} - {p.Age}");
+---------------
+var groupes = personnes.GroupBy(p => p.Nom);
+
+foreach (var groupe in groupes)
+{
+    Console.WriteLine($"Nom : {groupe.Key}");
+    foreach (var p in groupe)
+        Console.WriteLine($"  Âge : {p.Age}");
+}
+---------------
+var pair = nombres.FirstOrDefault(n => n % 2 == 0);
+Console.WriteLine(pair); // Affiche 2
+---------------
+bool contientPair = nombres.Any(n => n % 2 == 0);
+Console.WriteLine(contientPair); // true
+---------------
+bool tousPositifs = nombres.All(n => n > 0);
+Console.WriteLine(tousPositifs); // true
+---------------
+int combien = noms.Count();
+Console.WriteLine(combien); // 2
+---------------
+int total = nombres.Sum();
+Console.WriteLine(total); // 15
+---------------
+double moyenne = nombres.Average();
+Console.WriteLine(moyenne); // 3.0
+---------------
+var liste = nombres.ToList();
+---------------
+var dictionnaire = personnes.ToDictionary(p => p.Nom, p => p.Age);
+---------------
+var inversé = nombres.AsEnumerable().Reverse();
+
+foreach (var n in inversé)
+    Console.WriteLine(n); // Affiche 5, 4, 3, 2, 1
+---------------
