@@ -27,9 +27,9 @@ class Program
             Console.WriteLine($"Winner: {wordsElite.First()}\nLosser: {wordsElite.Last()}");
 
         };
-            a();
-        Action epsilon = () => { 
-        
+        a();
+        Action epsilon = () => {
+
 
         };
 

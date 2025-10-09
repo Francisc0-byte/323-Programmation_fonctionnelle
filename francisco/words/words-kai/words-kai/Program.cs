@@ -25,14 +25,14 @@ class Program
 
         //crée un filtre lambda
         //filtre pour le x
-        Func<string,bool> noX = word => !word.Contains("x");
+        Func<string, bool> noX = word => !word.Contains("x");
         //filtre pour un mot plus grand que 4 lettre
         Func<string, bool> fourOrMore = word => word.Length > 4;
         //filtre pour calcule la moyenne
         Func<string, bool> sameAsAvg = word => word.Length == words.Average(word2 => word2.Length);
 
         //met les filtres dans une liste
-        var filtre = new List<Func<string,bool>>();
+        var filtre = new List<Func<string, bool>>();
         filtre.Add(noX);
         filtre.Add(fourOrMore);
         filtre.Add(sameAsAvg);
@@ -46,7 +46,7 @@ class Program
         int choice = Convert.ToInt32(Console.ReadLine()) - 1;
 
         var filteredData = words.Where(filtre[choice]);
-     
+
         Console.WriteLine($"Resultat: {string.Join(" ", filteredData)}\n");
 
         //part 2
@@ -62,8 +62,8 @@ class Program
 
         Console.WriteLine(string.Join(" ", reverseName));
 
-        IEnumerable<string> reverseName2 = filteredData.OrderByDescending(word=>word);
-        Console.WriteLine(string.Join(" ", reverseName2) );
+        IEnumerable<string> reverseName2 = filteredData.OrderByDescending(word => word);
+        Console.WriteLine(string.Join(" ", reverseName2));
 
         IEnumerable<string> nameOrder = filteredData.OrderBy(word => word);
         Console.WriteLine(string.Join(" ", nameOrder));
@@ -80,6 +80,6 @@ class Program
         //Console.WriteLine(string.Join(" ",words.Where(sameAsAvg)));
 
         Console.Read();
-        
+
     }
 }
